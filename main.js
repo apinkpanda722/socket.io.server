@@ -1,11 +1,20 @@
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
 const port = process.env.PORT || 3000;
 const log = require("./logs");
 const dbconn = require("./dbconn");
 const logger = require("./logs");
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    transports: ["websocket", "polling"],
+    credentials: true,
+  },
+  allowEIO3: true,
+});
 
 server.listen(port, () => {
   log.info("Server listening at port [" + port + "]");
