@@ -7,7 +7,7 @@ const log = require("./logs");
 const dbconn = require("./dbconn");
 const logger = require("./logs");
 
-const domains = ["http://localhost:3000"];
+/* const domains = ["http://localhost:3000"];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -15,12 +15,17 @@ const corsOptions = {
     callback(null, isTrue);
   },
   credentials: true,
+}; */
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     transports: ["websocket", "polling"],
     allowedHeaders: ["Access-Control-Allow-Origin"],
