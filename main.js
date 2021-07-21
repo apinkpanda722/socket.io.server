@@ -1,10 +1,22 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const server = require("http").createServer(app);
 const port = process.env.PORT || 3000;
 const log = require("./logs");
 const dbconn = require("./dbconn");
 const logger = require("./logs");
+
+const domains = ["http://13.125.98.110:3000"];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    const isTrue = domains.indexOf(origin) !== -1;
+    callback(null, isTrue);
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 const io = require("socket.io")(server, {
   cors: {
