@@ -23,6 +23,7 @@ const io = require("socket.io")(server, {
     origin: "*",
     methods: ["GET", "POST"],
     transports: ["websocket", "polling"],
+    allowedHeaders: ["Access-Control-Allow-Origin"],
     credentials: true,
   },
   allowEIO3: true,
