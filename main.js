@@ -7,7 +7,7 @@ const log = require("./logs");
 const dbconn = require("./dbconn");
 const logger = require("./logs");
 
-const domains = ["http://13.125.98.110:3000"];
+const domains = ["http://localhost:3000"];
 
 const corsOptions = {
   origin: function (origin, callback) {
