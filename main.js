@@ -17,13 +17,7 @@ const corsOptions = {
   credentials: true,
 }; */
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
-const io = require("socket.io")(server, {
+/* const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
@@ -32,7 +26,7 @@ const io = require("socket.io")(server, {
     credentials: true,
   },
   allowEIO3: true,
-});
+}); */
 
 server.listen(port, () => {
   log.info("Server listening at port [" + port + "]");
