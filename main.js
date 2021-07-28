@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const server = require("http").createServer(app);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const io = require("socket.io")(server);
 const log = require("./logs");
 const dbconn = require("./dbconn");
@@ -114,7 +114,9 @@ const initSocketProc = (socket, isSuccess, rstData) => {
   if (isSuccess) {
     socket["mem_info"] = rstData;
     socket.join(_MASTER_OPEN_ID);
-    log.info("Join in the ROOM [Member ID: " + rstData.mem_id + "]");
+    log.info(
+      `Join in the ROOM [Member ID:  + ${rstData.mem_id} + Member ROLE:  + ${rstData.role} ]`
+    );
 
     //#처음 연결되고 사용자 정보까지 Socket에 저장하면 초기화를 위해 init 이벤트를 호출한다.
     socket.emit("conn:init", {});
@@ -138,9 +140,12 @@ const initSocketProc = (socket, isSuccess, rstData) => {
 
       dbconn.GetAllChatRoomIDs(socket.mem_info, function (isSuccess, rstData) {
         if (isSuccess) {
+          let chr_id_list = [];
           for (let i = 0; i < rstData.length; i++) {
             socket.join(rstData[i].chr_id);
+            chr_id_list.push(rstData[i].chr_id);
           }
+          socket.emit("chat:alljoin", chr_id_list);
         }
       });
     });
