@@ -134,7 +134,7 @@ const initSocketProc = (socket, isSuccess, rstData) => {
     _conn_socket.in(_MASTER_OPEN_ID).emit("conn:join", joinInfos);
 
     //#나와 관련된 모든 채팅 ROOM에 JOIN 한다.
-    socket.on("chat:alljoin", function (data) {
+    socket.on("chat:alljoin", function (data, callback) {
       log.info("connection...::[chat:alljoin]");
       log.info(data);
 
@@ -145,7 +145,7 @@ const initSocketProc = (socket, isSuccess, rstData) => {
             socket.join(rstData[i].chr_id);
             chr_id_list.push(rstData[i].chr_id);
           }
-          socket.emit("chat:alljoin", chr_id_list);
+          callback(chr_id_list);
         }
       });
     });
