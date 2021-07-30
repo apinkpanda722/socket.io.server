@@ -3,7 +3,12 @@ const app = express();
 const cors = require("cors");
 const server = require("http").createServer(app);
 const port = process.env.PORT || 3000;
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, {
+  requestCert: true,
+  secure: true,
+  rejectUnauthorized: false,
+  transports: ["websocket"],
+});
 const log = require("./logs");
 const dbconn = require("./dbconn");
 const logger = require("./logs");
