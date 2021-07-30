@@ -470,6 +470,8 @@ const initSocketProc = (socket, isSuccess, rstData) => {
         let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
 
         if (targSocket != null) targSocket.emit("lt:command", data);
+      } else if (data.type == "CMD_S001") {
+        socket.broadcast.to(data.chnn_id).emit("lt:command", data);
       }
     });
   }
