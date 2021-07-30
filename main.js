@@ -454,6 +454,7 @@ const initSocketProc = (socket, isSuccess, rstData) => {
       //CMD_W002 : 화상채팅 종료 (WEB), param01 : mem_id
       //CMD_A001 : 강의 장소 변경 (ALL - WEB + VR), param01 : tmpl_id
       //CMD_V001 : 캐릭터 변경 (VR), param01 : mem_id, param02 : resc_id
+      //CMD_S001 : 손들기 (발표 요청) (VR), param01: mem_id
 
       if (data.type == "CMD_W001") {
         let targSocket = FindSocketInfo(data.chnn_id, data.param01);
@@ -466,7 +467,12 @@ const initSocketProc = (socket, isSuccess, rstData) => {
       } else if (data.type == "CMD_A001") {
         //sending to all clients in room(channel) except sender
         socket.broadcast.to(data.chnn_id).emit("lt:command", data);
+        wddw;
       } else if (data.type == "CMD_V001") {
+        let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
+
+        if (targSocket != null) targSocket.emit("lt:command", data);
+      } else if (data.type == "CMD_S001") {
         let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
 
         if (targSocket != null) targSocket.emit("lt:command", data);
