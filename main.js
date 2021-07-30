@@ -4,7 +4,7 @@ const cors = require("cors");
 const server = require("http").createServer(app);
 const port = process.env.PORT || 3000;
 const io = require("socket.io")(server, {
-  transports: ["polling", "websocket"],
+  transports: ["websocket"],
 });
 const log = require("./logs");
 const dbconn = require("./dbconn");
