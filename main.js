@@ -7,7 +7,7 @@ const io = require("socket.io")(server, {
   requestCert: true,
   secure: true,
   rejectUnauthorized: false,
-  transports: ["websocket"],
+  transports: ["polling"],
 });
 const log = require("./logs");
 const dbconn = require("./dbconn");
