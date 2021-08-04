@@ -454,6 +454,10 @@ const initSocketProc = (socket, isSuccess, rstData) => {
       //CMD_W002 : 화상채팅 종료 (WEB), param01 : mem_id
       //CMD_A001 : 강의 장소 변경 (ALL - WEB + VR), param01 : tmpl_id
       //CMD_V001 : 캐릭터 변경 (VR), param01 : mem_id, param02 : resc_id
+      //CMD_S001 : 학생이 발표 의사를 내비치기 (VR), param01 : mem_id
+      //CMD_N001 : 특정 학생의 보이스를 On (VR), param01 : mem_id
+      //CMD_F001 : 특정 학생의 보이스를 Off (VR), param01 : mem_id
+      //CMD_R001 : 원 위치로 되돌리기 (VR), param01 : mem_id
 
       if (data.type == "CMD_W001") {
         let targSocket = FindSocketInfo(data.chnn_id, data.param01);
@@ -472,6 +476,18 @@ const initSocketProc = (socket, isSuccess, rstData) => {
         if (targSocket != null) targSocket.emit("lt:command", data);
       } else if (data.type == "CMD_S001") {
         socket.broadcast.to(data.chnn_id).emit("lt:command", data);
+      } else if (data.type == "CMD_N001") {
+        let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
+
+        if (targSocket != null) targSocket.emit("lt:command", data);
+      } else if (data.type == "CMD_F001") {
+        let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
+
+        if (targSocket != null) targSocket.emit("lt:command", data);
+      } else if (data.type == "CMD_R001") {
+        let targSocket = FindSocketInfo(data.chnn_id, data.param01, "VR");
+
+        if (targSocket != null) targSocket.emit("lt:command", data);
       }
     });
   }
